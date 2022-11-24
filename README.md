@@ -5,7 +5,7 @@ Game created during a program "Junior Programmer: Create with Code 2" https://le
 Both games are endless runersr game type
 
 Game1 - endless runer where you have to jump over randomly spawned obstacles
-https://youtu.be/DEm9_eiYHCM
+* https://youtu.be/DEm9_eiYHCM
 
 Game2 - endless runer where you have to press space to keep yourself in the air and avoid obstacles
 ![](https://github.com/jeti20/Prototype3/blob/main/Pictures/png1.PNG)
