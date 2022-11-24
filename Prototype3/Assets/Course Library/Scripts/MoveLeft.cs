@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {//make obstacles move to left 
-
-    float speed = 30;
+    public float speed;
+    public float normalSpeed = 10;
+    public float extraSpeed = 20;
+    
     private PlayerControllr playerControllerScript;
     float leftBound = -10;
 
@@ -18,6 +20,15 @@ public class MoveLeft : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if ((Input.GetKey(KeyCode.LeftShift)))
+        {
+            speed = extraSpeed;
+        }
+        else
+        {
+            speed = normalSpeed;
+        }
+
         if (playerControllerScript.gameOver == false)
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);

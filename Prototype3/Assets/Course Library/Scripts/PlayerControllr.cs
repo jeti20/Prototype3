@@ -21,6 +21,7 @@ public class PlayerControllr : MonoBehaviour
     [SerializeField] float gravityModifer;
     [SerializeField] bool isOnTheGround;
     public bool gameOver = false;
+    public bool doubleJump = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +35,11 @@ public class PlayerControllr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Jump();
+    }
+
+    private void Jump()
+    {
         if (Input.GetKeyDown(KeyCode.Space) && isOnTheGround && gameOver == false) // lub gameOVer != true, lub po prostu !gameOver
         {
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -44,10 +50,24 @@ public class PlayerControllr : MonoBehaviour
             playerAnim.SetTrigger("Jump_trig");
             dirtParticle.Stop(); //zaczymujemy particel system 
             playerAudio.PlayOneShot(jumpSound, 1.0f);
+            doubleJump = true;
+
 
         }
-    }
 
+        else if (Input.GetKeyDown(KeyCode.Space) && gameOver == false && doubleJump == true)
+        {
+            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            //Add an instant force impulse to the rigidbody, using its mass.
+            //Apply the impulse force instantly with a single function call. This mode depends on the mass of rigidbody so more force must be applied to push or twist higher-mass objects the same amount as lower-mass objects. 
+            //This mode is useful for applying forces that happen instantly, such as forces from explosions or collisions. In this mode, the unit of the force parameter is applied to the rigidbody as mass*distance/time.
+            isOnTheGround = false;
+            playerAnim.SetTrigger("Jump_trig");
+            dirtParticle.Stop(); //zaczymujemy particel system 
+            playerAudio.PlayOneShot(jumpSound, 1.0f);
+            doubleJump = false;
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Graund"))
